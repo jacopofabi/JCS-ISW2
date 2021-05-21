@@ -2,12 +2,21 @@ language: java
 jdk:
   - openjdk16
 
+os: 
+  - linux
+  
+dist:
+  - debian
+  
 addons:
     sonarcloud:
         organization: "jacopofabi"
         token: "ab2b7e3875651dea99866bb998c7b9441ce785ae"
         
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=jacopofabi_JCS-ISW2
+script: 
+  # da problemi ed analizza solo il pom.xml, probabilmente l'install di sonar perde il plugin per Java
+  #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=danilo-dellorco_jcsTests
+
+    # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean verify
   - sonar-scanner
