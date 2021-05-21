@@ -1,8 +1,15 @@
 language: java
 jdk:
   - openjdk16
-  
-script: 
+
+addons:
+    sonarcloud:
+        organization: "jacopofabi"
+        token: "ab2b7e3875651dea99866bb998c7b9441ce785ae"
+        
+script:
+  - sonar-scanner 
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn compile
-  - mvn test
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=jacopofabi_JCS-ISW2
