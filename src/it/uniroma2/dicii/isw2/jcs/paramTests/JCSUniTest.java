@@ -24,8 +24,20 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.jcs.JCS;
+import org.apache.jcs.access.exception.CacheException;
+import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.junit.BeforeClass;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.LinkedList;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -34,17 +46,32 @@ import java.util.Random;
  *
  * @version $Id: JCSUniTest.java 536904 2007-05-10 16:03:42Z tv $
  */
-public class JCSUniTest
-    extends TestCase
-{
-    Random random = new Random();
+@RunWith(Parameterized.class)
+@Category(JUnitTest.class)
+public class JCSUniTest {
+	private static JCS jcs;
+	private static Random random;
 
-    /**
-     * @param testName
-     */
-    public JCSUniTest( String testName )
-    {
-        super( testName );
+    public JCSUniTest() {
+        random = new Random();
+    }
+    
+	/*
+	 * Configurazione dell'ambiente prima dell'esecuzione della test suite
+	 */
+	@BeforeClass
+	public static void configure() throws CacheException {
+		jcs = JCS.getInstance("testCache1");
+	}
+	
+	/*
+	 * Valori dei parametri da testare ricavati dal Domain Partitioning
+	 */
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {1,2},{3,4}
+        });
     }
 
     /**
@@ -67,46 +94,35 @@ public class JCSUniTest
     /**
      * @throws Exception
      */
-    public void testJCS()
-        throws Exception
-    {
-        JCS jcs = JCS.getInstance( "testCache1" );
-
+    public void testJCS() throws Exception {
         LinkedList list = buildList();
-
+        
         jcs.put( "some:key", list );
-
         assertEquals( list, jcs.get( "some:key" ) );
     }
 
-    private LinkedList buildList()
-    {
+    private LinkedList buildList() {
         LinkedList list = new LinkedList();
-
-        for ( int i = 0; i < 100; i++ )
-        {
+        
+        for ( int i = 0; i < 100; i++ ) {
             list.add( buildMap() );
         }
 
         return list;
     }
 
-    private HashMap buildMap()
-    {
+    private HashMap buildMap() {
         HashMap map = new HashMap();
 
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < 10; i++ )
-        {
+        for ( int i = 0; i < 10; i++ ) {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
-
             map.put( new String( keyBytes ), new String( valBytes ) );
         }
 
         return map;
     }
-
 }

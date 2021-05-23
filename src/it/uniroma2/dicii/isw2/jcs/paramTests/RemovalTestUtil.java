@@ -1,6 +1,19 @@
 package it.uniroma2.dicii.isw2.jcs.paramTests;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.apache.jcs.JCS;
+import org.apache.jcs.access.exception.CacheException;
+import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.junit.BeforeClass;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,9 +40,12 @@ import junit.framework.TestCase;
  * Simple methods to be run by active test suites that test removal.
  *
  */
-public class RemovalTestUtil
-    extends TestCase
-{
+@RunWith(Parameterized.class)
+@Category(JUnitTest.class)
+public class RemovalTestUtil {
+	private static JCS jcs;
+	private int start;
+	private int end;
 
     /**
      * Constructor for the TestSimpleLoad object
@@ -37,9 +53,27 @@ public class RemovalTestUtil
      * @param testName
      *            Description of the Parameter
      */
-    public RemovalTestUtil( String testName )
-    {
-        super( testName );
+    public RemovalTestUtil(int start, int end) {
+    	this.start = start;
+    	this.end = end;
+    }
+    
+	/*
+	 * Configurazione dell'ambiente prima dell'esecuzione della test suite
+	 */
+	@BeforeClass
+	public static void configure() throws CacheException {
+		 jcs = JCS.getInstance( "testCache1" );
+	}
+	
+	/*
+	 * Valori dei parametri da testare ricavati dal Domain Partitioning
+	 */
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {1,2},{3,4}
+        });
     }
 
     /**
@@ -52,11 +86,7 @@ public class RemovalTestUtil
      * @exception Exception
      *                Description of the Exception
      */
-    public void runTestPutThenRemoveCategorical( int start, int end )
-        throws Exception
-    {
-        JCS jcs = JCS.getInstance( "testCache1" );
-
+    public void runTestPutThenRemoveCategorical( int start, int end ) throws Exception {
         for ( int i = start; i <= end; i++ )
         {
             jcs.put( i + ":key", "data" + i );
