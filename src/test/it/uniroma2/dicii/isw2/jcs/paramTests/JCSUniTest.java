@@ -63,7 +63,7 @@ public class JCSUniTest {
 	@BeforeClass
 	public static void configure() throws CacheException {
         random = new Random();
-        JCS.setConfigFilename("cache.ccf");
+        JCS.setConfigFilename("/cache.ccf");
 		jcs = JCS.getInstance("testCache1");
 	}
 	
@@ -75,14 +75,6 @@ public class JCSUniTest {
         return Arrays.asList(new Object[][] {
                 {50,5},{60,6},{70,7},{80,8},{90,9},{100,10} //lasciare solo 100 e 10
         });
-    }
-
-    /**
-     * @return Test
-     */
-    public static Test suite()
-    {
-        return (Test) new TestSuite( JCSUniTest.class );
     }
 
     /**
