@@ -63,6 +63,7 @@ public class JCSUniTest {
 	@BeforeClass
 	public static void configure() throws CacheException {
         random = new Random();
+        JCS.setConfigFilename("/cache.ccf");
 		jcs = JCS.getInstance("testCache1");
 	}
 	
