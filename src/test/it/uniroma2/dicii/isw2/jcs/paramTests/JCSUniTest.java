@@ -28,7 +28,6 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import junit.framework.TestSuite;
 
 import java.util.LinkedList;
 
@@ -71,7 +70,7 @@ public class JCSUniTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {50},{60},{70},{80},{90},{100} //lasciare solo 100 e 10
+                {100} 
         });
     }
 
