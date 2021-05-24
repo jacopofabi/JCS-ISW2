@@ -88,13 +88,13 @@ public class RemovalTestUtil {
      *                Description of the Exception
      */
     @Test
-    public void runTestPutThenRemoveCategorical( int start, int end ) throws Exception {
-        for ( int i = start; i <= end; i++ )
+    public void runTestPutThenRemoveCategorical() throws Exception {
+        for ( int i = this.start; i <= this.end; i++ )
         {
             jcs.put( i + ":key", "data" + i );
         }
 
-        for ( int i = end; i >= start; i-- )
+        for ( int i = this.end; i >= this.start; i-- )
         {
             String res = (String) jcs.get( i + ":key" );
             if ( res == null )
@@ -102,14 +102,14 @@ public class RemovalTestUtil {
                 assertNotNull( "[" + i + ":key] should not be null", res );
             }
         }
-        System.out.println( "Confirmed that " + ( end - start ) + " items could be found" );
+        System.out.println( "Confirmed that " + ( this.end - this.start ) + " items could be found" );
 
-        for ( int i = start; i <= end; i++ )
+        for ( int i = this.start; i <= this.end; i++ )
         {
             jcs.remove( i + ":" );
             assertNull( jcs.get( i + ":key" ) );
         }
-        System.out.println( "Confirmed that " + ( end - start ) + " items were removed" );
+        System.out.println( "Confirmed that " + ( this.end - this.start ) + " items were removed" );
 
         System.out.println( jcs.getStats() );
 
