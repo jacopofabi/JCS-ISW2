@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.isw2.jcs.paramTests;
+package test.it.uniroma2.dicii.isw2.jcs.paramTests;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.isw2.jcs.paramTests;
+package test.it.uniroma2.dicii.isw2.jcs.paramTests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -10,6 +10,7 @@ import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -86,6 +87,7 @@ public class RemovalTestUtil {
      * @exception Exception
      *                Description of the Exception
      */
+    @Test
     public void runTestPutThenRemoveCategorical( int start, int end ) throws Exception {
         for ( int i = start; i <= end; i++ )
         {
