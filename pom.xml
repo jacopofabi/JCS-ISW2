@@ -17,11 +17,10 @@
 </properties>
 
   <dependencies>
-    <dependency>
+	<dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <version>4.13</version>
     </dependency>
     
          <dependency>
@@ -43,12 +42,6 @@
      <artifactId>jta</artifactId>
      <version>1.1</version>
 	</dependency>
-	
-	<dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-    </dependency>
   </dependencies>
   
 <build>
@@ -57,5 +50,33 @@
 
         <!-- Dichiaro la cartella contenente i file di configurazioni dei test -->
         <sourceDirectory>src/test-conf</sourceDirectory>
+        <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.6.0.1398</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit4</artifactId>
+							<version>2.22.0</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
 </build>
 </project>
