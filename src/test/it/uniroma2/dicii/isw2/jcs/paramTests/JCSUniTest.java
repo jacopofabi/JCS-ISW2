@@ -48,10 +48,12 @@ import java.util.Random;
 public class JCSUniTest {
 	private static JCS jcs;
 	private static Random random;
-	private int count;
-
-    public JCSUniTest(int count) {
-        this.count = count;
+	private int count1;
+	private int count2;
+	
+    public JCSUniTest(int count1, int count2) {
+        this.count1 = count1;
+        this.count2 = count2;
     }
     
 	/*
@@ -70,7 +72,7 @@ public class JCSUniTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {100} 
+                {100,10} 
         });
     }
 
@@ -88,7 +90,7 @@ public class JCSUniTest {
     private LinkedList buildList() {
         LinkedList list = new LinkedList();
         
-        for ( int i = 0; i < this.count; i++ ) {
+        for ( int i = 0; i < this.count1; i++ ) {
             list.add( buildMap() );
         }
 
@@ -101,7 +103,7 @@ public class JCSUniTest {
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < 10; i++ ) {
+        for ( int i = 0; i < this.count2; i++ ) {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
             map.put( new String( keyBytes ), new String( valBytes ) );
