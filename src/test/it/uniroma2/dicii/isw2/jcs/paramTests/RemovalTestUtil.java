@@ -64,7 +64,7 @@ public class RemovalTestUtil {
 	 */
 	@BeforeClass
 	public static void configure() throws CacheException {
-		 jcs = JCS.getInstance( "testCache1" );
+		 jcs = JCS.getInstance("testCache1");
 	}
 	
 	/*
