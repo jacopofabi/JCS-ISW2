@@ -29,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import junit.framework.TestSuite;
+import org.apache.log4j.BasicConfigurator;
 
 import java.util.LinkedList;
 
@@ -65,6 +66,7 @@ public class JCSUniTest {
         random = new Random();
         JCS.setConfigFilename("/cache.ccf");
 		jcs = JCS.getInstance("testCache1");
+		BasicConfigurator.configure();
 	}
 	
 	/*
