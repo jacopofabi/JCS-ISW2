@@ -19,18 +19,16 @@ package it.uniroma2.dicii.isw2.jcs.paramTests;
  * under the License.
  */
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import junit.framework.TestSuite;
 
 import java.util.LinkedList;
 
@@ -51,9 +49,12 @@ import java.util.Random;
 public class JCSUniTest {
 	private static JCS jcs;
 	private static Random random;
+	private int count1;
+	private int count2;
 
-    public JCSUniTest() {
-        random = new Random();
+    public JCSUniTest(int count1, int count2) {
+        this.count1 = count1;
+        this.count2 = count2; //non so se questo serve, rappresenta il valore usato nel ciclo for di "BuildMap" che non è test!
     }
     
 	/*
@@ -61,6 +62,7 @@ public class JCSUniTest {
 	 */
 	@BeforeClass
 	public static void configure() throws CacheException {
+        random = new Random();
 		jcs = JCS.getInstance("testCache1");
 	}
 	
@@ -70,7 +72,7 @@ public class JCSUniTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {1,2},{3,4}
+                {50,5},{60,6},{70,7},{80,8},{90,9},{100,10} //lasciare solo 100 e 10
         });
     }
 
@@ -79,21 +81,13 @@ public class JCSUniTest {
      */
     public static Test suite()
     {
-        return new TestSuite( JCSUniTest.class );
-    }
-
-    /**
-     * @param args
-     */
-    public static void main( String args[] )
-    {
-        String[] testCaseName = { JCSUniTest.class.getName() };
-        junit.textui.TestRunner.main( testCaseName );
+        return (Test) new TestSuite( JCSUniTest.class );
     }
 
     /**
      * @throws Exception
      */
+    @Test
     public void testJCS() throws Exception {
         LinkedList list = buildList();
         
@@ -104,7 +98,7 @@ public class JCSUniTest {
     private LinkedList buildList() {
         LinkedList list = new LinkedList();
         
-        for ( int i = 0; i < 100; i++ ) {
+        for ( int i = 0; i < this.count1; i++ ) {
             list.add( buildMap() );
         }
 
@@ -117,7 +111,7 @@ public class JCSUniTest {
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < 10; i++ ) {
+        for ( int i = 0; i < this.count2; i++ ) {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
             map.put( new String( keyBytes ), new String( valBytes ) );

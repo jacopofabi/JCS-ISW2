@@ -123,10 +123,7 @@ public class RemovalTestUtil {
      *            int
      * @throws Exception
      */
-    public void runPutInRange( int start, int end )
-        throws Exception
-    {
-        JCS jcs = JCS.getInstance( "testCache1" );
+    public void runPutInRange( int start, int end ) throws Exception {
 
         for ( int i = start; i <= end; i++ )
         {
@@ -155,10 +152,7 @@ public class RemovalTestUtil {
      *            boolean -- check to see if the items are in the cache.
      * @throws Exception
      */
-    public void runGetInRange( int start, int end, boolean check )
-        throws Exception
-    {
-        JCS jcs = JCS.getInstance( "testCache1" );
+    public void runGetInRange( int start, int end, boolean check ) throws Exception {
 
         // don't care if they are found
         for ( int i = end; i >= start; i-- )
