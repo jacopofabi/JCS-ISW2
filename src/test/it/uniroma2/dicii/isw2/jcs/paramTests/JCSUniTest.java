@@ -67,7 +67,7 @@ public class JCSUniTest {
 	}
 	
 	/*
-	 * Valori dei parametri da testare ricavati dal Domain Partitioning
+	 * Valori dei parametri da testare
 	 */
     @Parameters
     public static Collection<Object[]> data() {

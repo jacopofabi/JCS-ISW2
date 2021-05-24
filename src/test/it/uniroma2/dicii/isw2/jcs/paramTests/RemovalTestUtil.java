@@ -69,12 +69,13 @@ public class RemovalTestUtil {
 	}
 	
 	/*
-	 * Valori dei parametri da testare ricavati dal Domain Partitioning
+	 * Valori dei parametri da testare, ricavati dalla classe ConcurrentRemovalLoadTest.java, dove viene creata e lanciata
+	 * la test suite per il testing della classe RemovalTestUtil.java
 	 */
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {1,2,true},{3,4,false}
+                {0,200,false},{300,400,false},{401,600,false},{601,700,false},{0,1000,false}
         });
     }
 
