@@ -125,7 +125,7 @@ public class RemovalTestUtil {
      *            int
      * @throws Exception
      */
-    public void runPutInRange( int start, int end ) throws Exception {
+    public void runPutInRange() throws Exception {
 
         for ( int i = start; i <= end; i++ )
         {

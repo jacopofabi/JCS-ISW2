@@ -54,7 +54,6 @@ public class JCSUniTest {
 
     public JCSUniTest(int count1, int count2) {
         this.count1 = count1;
-        this.count2 = count2; //non so se questo serve, rappresenta il valore usato nel ciclo for di "BuildMap" che non è test!
     }
     
 	/*
@@ -73,7 +72,7 @@ public class JCSUniTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {50,5},{60,6},{70,7},{80,8},{90,9},{100,10} //lasciare solo 100 e 10
+                {50},{60},{70},{80},{90},{100} //lasciare solo 100 e 10
         });
     }
 
@@ -104,7 +103,7 @@ public class JCSUniTest {
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < this.count2; i++ ) {
+        for ( int i = 0; i < 10; i++ ) {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
             map.put( new String( keyBytes ), new String( valBytes ) );
