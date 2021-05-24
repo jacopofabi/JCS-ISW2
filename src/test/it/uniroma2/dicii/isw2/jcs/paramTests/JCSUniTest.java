@@ -49,11 +49,10 @@ import java.util.Random;
 public class JCSUniTest {
 	private static JCS jcs;
 	private static Random random;
-	private int count1;
-	private int count2;
+	private int count;
 
-    public JCSUniTest(int count1, int count2) {
-        this.count1 = count1;
+    public JCSUniTest(int count) {
+        this.count = count;
     }
     
 	/*
@@ -90,7 +89,7 @@ public class JCSUniTest {
     private LinkedList buildList() {
         LinkedList list = new LinkedList();
         
-        for ( int i = 0; i < this.count1; i++ ) {
+        for ( int i = 0; i < this.count; i++ ) {
             list.add( buildMap() );
         }
 
