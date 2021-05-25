@@ -75,6 +75,9 @@ public class RemovalTestUtil {
 	/*
 	 * Valori dei parametri da testare, ricavati dalla classe ConcurrentRemovalLoadTest.java, dove viene creata e lanciata
 	 * la test suite per l'esecuzione dei test presenti in RemovalTestUtil.java
+	 * Assegniamo ad ogni test un tipo, così da eseguire ognuno con i valori utilizzati di default da JCS.
+	 * Se non facessimo così, ogni test verrebbe eseguito per ogni set di parametri specificati nella collezione, ma 
+	 * "runTestPutThenRemoveCategorical" e "runPutInRange" falliscono con start=0 e end=1000 utilizzati da "runGetInRange".
 	 */
     @Parameters
     public static Collection<Object[]> data() {
@@ -84,8 +87,7 @@ public class RemovalTestUtil {
                 {Type.RunPutInRange,401,600,false},
                 {Type.RunTestPutThenRemoveCategorical,601,700,false},
                 {Type.RunTestPutThenRemoveCategorical,701,800,false},
-                {Type.RunGetInRange,0,1000,false} //con 0,1000 falliscono i primi 2 test, che in teoria non vengono eseguiti con questi valori
-                				 //controllare se possibile creare collection specifiche per metodi diversi
+                {Type.RunGetInRange,0,1000,false}
         });
     }
 
