@@ -75,8 +75,10 @@ public class RemovalTestUtil {
 	/*
 	 * Valori dei parametri da testare, ricavati dalla classe ConcurrentRemovalLoadTest.java, dove viene creata e lanciata
 	 * la test suite per l'esecuzione dei test presenti in RemovalTestUtil.java
-	 * Assegniamo ad ogni test un tipo, così da eseguire ognuno con i valori utilizzati di default da JCS.
-	 * Se non facessimo così, ogni test verrebbe eseguito per ogni set di parametri specificati nella collezione, ma 
+	 * Utilizziamo per ogni insieme di parametri un tipo, che identifica il preciso metodo di test.
+	 * Quando la classe viene istanziata, il tipo specificato permette a JUnit di capire se il metodo deve essere eseguito o skippato
+	 * per quello specifico insieme di parametri, sfruttando Assume.assumeTrue.
+	 * In questo modo, eseguiamo i test solamente con i valori di default usati da JCS, ed evitiamo errori dei casi di test perchè 
 	 * "runTestPutThenRemoveCategorical" e "runPutInRange" falliscono con start=0 e end=1000 utilizzati da "runGetInRange".
 	 */
     @Parameters
@@ -103,6 +105,8 @@ public class RemovalTestUtil {
      */
     @Test
     public void runTestPutThenRemoveCategorical() throws Exception {
+    	//se type della classe istanziata è "RunTestPutThenRemoveCategorical", il test viene eseguito con i parametri specifici
+    	//della classe istanziata, altrimenti viene skippato
     	Assume.assumeTrue(this.type == Type.RunTestPutThenRemoveCategorical);
         for ( int i = this.start; i <= this.end; i++ )
         {
