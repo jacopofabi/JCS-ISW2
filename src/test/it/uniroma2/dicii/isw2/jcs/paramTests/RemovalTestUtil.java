@@ -9,6 +9,7 @@ import java.util.Collection;
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -44,6 +45,8 @@ import org.junit.runners.Parameterized.Parameters;
 @Category(JUnitTest.class)
 public class RemovalTestUtil {
 	private static JCS jcs;
+	private enum Type {RunTestPutThenRemoveCategorical, RunPutInRange, RunGetInRange};
+	private Type type;
 	private int start;
 	private int end;
 	private boolean check = false;
@@ -54,7 +57,8 @@ public class RemovalTestUtil {
      * @param testName
      *            Description of the Parameter
      */
-    public RemovalTestUtil(int start, int end, boolean check) {
+    public RemovalTestUtil(Type type, int start, int end, boolean check) {
+    	this.type = type;
     	this.start = start;
     	this.end = end;
     	this.check = check;
@@ -75,11 +79,12 @@ public class RemovalTestUtil {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {0,200,false},
-                {300,400,false},
-                {401,600,false},
-                {601,700,false}
-                //{0,1000,false} //con 0,1000 falliscono i primi 2 test, che in teoria non vengono eseguiti con questi valori
+                {Type.RunTestPutThenRemoveCategorical,0,200,false},
+                {Type.RunPutInRange,300,400,false},
+                {Type.RunPutInRange,401,600,false},
+                {Type.RunTestPutThenRemoveCategorical,601,700,false},
+                {Type.RunTestPutThenRemoveCategorical,701,800,false},
+                {Type.RunGetInRange,0,1000,false} //con 0,1000 falliscono i primi 2 test, che in teoria non vengono eseguiti con questi valori
                 				 //controllare se possibile creare collection specifiche per metodi diversi
         });
     }
@@ -96,6 +101,7 @@ public class RemovalTestUtil {
      */
     @Test
     public void runTestPutThenRemoveCategorical() throws Exception {
+    	Assume.assumeTrue(this.type == Type.RunTestPutThenRemoveCategorical);
         for ( int i = this.start; i <= this.end; i++ )
         {
             jcs.put( i + ":key", "data" + i );
@@ -134,7 +140,7 @@ public class RemovalTestUtil {
      */
     @Test
     public void runPutInRange() throws Exception {
-
+    	Assume.assumeTrue(this.type == Type.RunPutInRange);
         for ( int i = start; i <= end; i++ )
         {
             jcs.put( i + ":key", "data" + i );
@@ -164,7 +170,7 @@ public class RemovalTestUtil {
      */
     @Test
     public void runGetInRange() throws Exception {
-
+    	Assume.assumeTrue(this.type == Type.RunGetInRange);
         // don't care if they are found
         for ( int i = this.end; i >= this.start; i-- )
         {
