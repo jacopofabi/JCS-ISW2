@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- import JaCoCo report to SonarCloud-->
     <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 </properties>
 
@@ -43,50 +44,53 @@
      <artifactId>jta</artifactId>
      <version>1.1</version>
 	</dependency>
+	
+	<dependency>
+	  <groupId>org.apache.maven.surefire</groupId>
+	  <artifactId>surefire-junit4</artifactId>
+	  <version>2.22.0</version>
+	</dependency>
   </dependencies>
   
-<build>
-        <!-- Specifico la cartella dove si trovano i Test JUnit -->
-        <testSourceDirectory>src/test/</testSourceDirectory>
+  <build>
+     <!-- Specifico la cartella dove si trovano i Test JUnit -->
+     <testSourceDirectory>src/test/</testSourceDirectory>
 
-        <!-- Dichiaro la cartella contenente i file di configurazioni dei test -->
-        <sourceDirectory>src/test-conf</sourceDirectory>
-        <pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.sonarsource.scanner.maven</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>3.6.0.1398</version>
-				</plugin>
+     <!-- Dichiaro la cartella contenente i file di configurazioni dei test -->
+     <sourceDirectory>src/test-conf</sourceDirectory>
+     <pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.6.0.1398</version>
+			</plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.0</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.surefire</groupId>
-							<artifactId>surefire-junit4</artifactId>
-							<version>2.22.0</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<includes>
-							<include>**/*.java</include>
-						</includes>
-					</configuration>
-				</plugin>
-				
-				<plugin>
-		          <groupId>org.jacoco</groupId>
-		          <artifactId>jacoco-maven-plugin</artifactId>
-		          <version>0.8.6</version>
-		        </plugin>
-
-			</plugins>
-		</pluginManagement>
-</build>
-<profiles>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit4</artifactId>
+						<version>2.22.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+ 		</plugins>
+  	 </pluginManagement>
+  	 
+  	 <!-- JaCoCo plugin to configure coverage report-->
+  	 <!-- prepare-agent: configure JaCoCo to collect coverage data-->
+  	 <!-- report: create a report in the directory tests/target/site/jacoco/jacoco.xml-->
+  </build>
+  <profiles>
     <profile>
       <id>coverage</id>
       <activation>
@@ -97,6 +101,7 @@
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.6</version>
             <executions>
               <execution>
                 <id>prepare-agent</id>
@@ -114,6 +119,23 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+       <id>sonar</id>
+        	<activation>
+            	<activeByDefault>true</activeByDefault>
+            </activation>
+          	<properties>
+               	<sonar.host.url>http://sonarcloud.io</sonar.host.url>
+				<sonar.organization>jacopofabi</sonar.organization>
+				<sonar.projectKey>jacopofabi_JCS-ISW2</sonar.projectKey>
+				<sonar.projectName>jcsTests</sonar.projectName>
+				<sonar.login>ab2b7e3875651dea99866bb998c7b9441ce785ae</sonar.login>
+				<sonar.src>src</sonar.src>
+				<sonar.language>java</sonar.language>
+				<sonar.java.src>13</sonar.java.src>
+				<sonar.verbose>true</sonar.verbose>
+			</properties>
     </profile>
   </profiles>
 </project>
