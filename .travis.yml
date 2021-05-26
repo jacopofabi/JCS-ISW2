@@ -14,5 +14,4 @@ addons:
         token: "ab2b7e3875651dea99866bb998c7b9441ce785ae"
         
 script: 
-    - mvn clean install # this will enusure the jococo.exe file is created.the file file has the result for the code coverage which will be used by sonarqube
-    - mvn sonar:sonar
+    - mvn clean verify sonar:sonar
