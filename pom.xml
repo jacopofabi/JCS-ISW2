@@ -3,20 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jacopo.fabi</groupId>
-  <artifactId>jcsTests</artifactId>
+  <artifactId>JCS-ISW2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>jcsTests</name>
+  <name>JCS-ISW2</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- import JaCoCo report to SonarCloud-->
-    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-</properties>
+    </properties>
 
   <dependencies>
 	<dependency>
@@ -130,11 +128,13 @@
 				<sonar.organization>jacopofabi</sonar.organization>
 				<sonar.projectKey>jacopofabi_JCS-ISW2</sonar.projectKey>
 				<sonar.projectName>jcsTests</sonar.projectName>
-				<sonar.login>ab2b7e3875651dea99866bb998c7b9441ce785ae</sonar.login>
+				<sonar.login>04b553cfaf2d4f22f82c90eb5e4c1b6702dcc2c1</sonar.login>
 				<sonar.src>src</sonar.src>
 				<sonar.language>java</sonar.language>
 				<sonar.java.src>13</sonar.java.src>
 				<sonar.verbose>true</sonar.verbose>
+				<!-- import JaCoCo report to SonarCloud-->
+    			<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 			</properties>
     </profile>
   </profiles>
