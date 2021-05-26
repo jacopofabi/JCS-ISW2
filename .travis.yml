@@ -14,5 +14,5 @@ addons:
         token: "ab2b7e3875651dea99866bb998c7b9441ce785ae"
         
 script: 
-    - mvn clean install
-    - mvn sonar:sonar -Dsonar.projectKey=jacopofabi_JCS-ISW2 -Dsonar.organization=jacopofabi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ab2b7e3875651dea99866bb998c7b9441ce785ae -Dsonar.coverage.jacoco.xmlReportPaths=${project.buid.directory}/site/jacoco/jacoco.xml
+  # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
+  - mvn clean verify sonar:sonar -Pcoverage
