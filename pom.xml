@@ -130,7 +130,6 @@
 				<sonar.projectName>JCS-ISW2</sonar.projectName>
 				<sonar.login>04b553cfaf2d4f22f82c90eb5e4c1b6702dcc2c1</sonar.login>
 				<sonar.src>src</sonar.src>
-				<sonar.sources>src</sonar.sources>
 				<sonar.language>java</sonar.language>
 				<sonar.java.src>13</sonar.java.src>
 				<sonar.verbose>true</sonar.verbose>
