@@ -129,9 +129,9 @@
 				<sonar.projectKey>jacopofabi_JCS-ISW2</sonar.projectKey>
 				<sonar.projectName>JCS-ISW2</sonar.projectName>
 				<sonar.login>04b553cfaf2d4f22f82c90eb5e4c1b6702dcc2c1</sonar.login>
-				<sonar.sources>src</sonar.sources>
+				<sonar.src>src</sonar.src>
 				<sonar.language>java</sonar.language>
-				<sonar.java.src>13</sonar.java.src>
+				<sonar.java.src>11</sonar.java.src>
 				<sonar.verbose>true</sonar.verbose>
 				<!-- import JaCoCo report to SonarCloud-->
     			<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
