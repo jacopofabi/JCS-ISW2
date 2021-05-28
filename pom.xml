@@ -22,12 +22,28 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13</version>
+	  <scope>system</system>
+	  
     </dependency>
     
-         <dependency>
-      <groupId>jcs</groupId>
-      <artifactId>jcs</artifactId>
-      <version>1.3</version>
+	<dependency>
+		<groupId>org.apache.jcs</groupId>
+		<artifactId>jcs</artifactId>
+		<version>1.3</version>
+		<scope>system</scope>
+		<systemPath>C:/GithubRepo/JCS-ISW2/src/test/lib/jcs-1.3-fat.jar</systemPath>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>concurrent</groupId>
+		<artifactId>concurrent</artifactId>
+		<version>1.0</version>
+	</dependency>
       
       <!-- Remove bug of jdbc-sdtext error -->
 	  <exclusions>
@@ -85,7 +101,7 @@
     <profile>
       <id>coverage</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <build>
         <plugins>
@@ -93,6 +109,10 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.6</version>
+			<configuration>
+				<destFile>${sonar.jacoco.reportPath}</destfile>
+				<append>true</append>
+			</configuration>
             <executions>
               <execution>
                 <id>prepare-agent</id>
@@ -114,7 +134,7 @@
     <profile>
        <id>sonar</id>
         	<activation>
-            	<activeByDefault>true</activeByDefault>
+            	<activeByDefault>false</activeByDefault>
             </activation>
           	<properties>
                	<sonar.host.url>http://sonarcloud.io</sonar.host.url>
