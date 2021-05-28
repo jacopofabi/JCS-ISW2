@@ -12,8 +12,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- Sonar scanner required Java 11 or higher version to analyze the project -->
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
   <dependencies>
@@ -42,20 +43,12 @@
      <artifactId>jta</artifactId>
      <version>1.1</version>
 	</dependency>
-	
-	<dependency>
-	  <groupId>org.apache.maven.surefire</groupId>
-	  <artifactId>surefire-junit4</artifactId>
-	  <version>2.22.0</version>
-	</dependency>
   </dependencies>
   
   <build>
      <!-- Specifico la cartella dove si trovano i Test JUnit -->
      <testSourceDirectory>src/test/</testSourceDirectory>
 
-     <!-- Dichiaro la cartella contenente i file di configurazioni dei test -->
-     <sourceDirectory>src/test-conf</sourceDirectory>
      <pluginManagement>
 		<plugins>
 			<plugin>
@@ -83,12 +76,12 @@
 			</plugin>
  		</plugins>
   	 </pluginManagement>
-  	 
-  	 <!-- JaCoCo plugin to configure coverage report-->
+  </build>
+  
+  <profiles>
+     <!-- JaCoCo plugin to configure coverage report-->
   	 <!-- prepare-agent: configure JaCoCo to collect coverage data-->
   	 <!-- report: create a report in the directory tests/target/site/jacoco/jacoco.xml-->
-  </build>
-  <profiles>
     <profile>
       <id>coverage</id>
       <activation>
@@ -129,7 +122,6 @@
 				<sonar.projectKey>jacopofabi_JCS-ISW2</sonar.projectKey>
 				<sonar.projectName>JCS-ISW2</sonar.projectName>
 				<sonar.login>04b553cfaf2d4f22f82c90eb5e4c1b6702dcc2c1</sonar.login>
-				<sonar.source>src</sonar.source>
 				<sonar.language>java</sonar.language>
 				<sonar.java.source>11</sonar.java.source>
 				<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
