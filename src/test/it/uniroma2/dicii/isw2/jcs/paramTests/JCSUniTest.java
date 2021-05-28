@@ -23,6 +23,7 @@ import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -42,6 +43,7 @@ import java.util.Random;
  * @version $Id: JCSUniTest.java 536904 2007-05-10 16:03:42Z tv $
  */
 @RunWith(Parameterized.class)
+@Category(JCSUniTest.class)
 public class JCSUniTest {
 	private static JCS jcs;
 	private static Random random;
