@@ -127,7 +127,7 @@
 				<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
 				<sonar.verbose>true</sonar.verbose>
 				<!-- import JaCoCo report to SonarCloud-->
-    			<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    			<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-gen/jcs-coverage/file.xml</sonar.coverage.jacoco.xmlReportPaths>
 			</properties>
     </profile>
   </profiles>
