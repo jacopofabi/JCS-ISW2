@@ -1,4 +1,4 @@
-package test.it.uniroma2.dicii.isw2.jcs.paramTests;
+package originaltest;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,13 @@ package test.it.uniroma2.dicii.isw2.jcs.paramTests;
  * under the License.
  */
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import org.apache.jcs.JCS;
-import org.apache.jcs.access.exception.CacheException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 import java.util.LinkedList;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -41,71 +34,79 @@ import java.util.Random;
  *
  * @version $Id: JCSUniTest.java 536904 2007-05-10 16:03:42Z tv $
  */
-@RunWith(Parameterized.class)
-public class JCSUniTest {
-	private static JCS jcs;
-	private static Random random;
-	private int count1;
-	private int count2;
-	
-    public JCSUniTest(int count1, int count2) {
-        this.count1 = count1;
-        this.count2 = count2;
+public class JCSUniTest
+    extends TestCase
+{
+    Random random = new Random();
+
+    /**
+     * @param testName
+     */
+    public JCSUniTest( String testName )
+    {
+        super( testName );
     }
-    
-	/*
-	 * Configurazione dell'ambiente prima dell'esecuzione della test suite
-	 */
-	@BeforeClass
-	public static void configure() throws CacheException {
-        random = new Random();
-        JCS.setConfigFilename("/cache.ccf");
-		jcs = JCS.getInstance("testCache1");
-	}
-	
-	/*
-	 * Valori dei parametri da testare
-	 */
-    @Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                {100,10} 
-        });
+
+    /**
+     * @return Test
+     */
+    public static Test suite()
+    {
+        return new TestSuite( JCSUniTest.class );
+    }
+
+    /**
+     * @param args
+     */
+    public static void main( String args[] )
+    {
+        String[] testCaseName = { JCSUniTest.class.getName() };
+        junit.textui.TestRunner.main( testCaseName );
     }
 
     /**
      * @throws Exception
      */
-    @Test
-    public void testJCS() throws Exception {
+    public void testJCS()
+        throws Exception
+    {
+        JCS jcs = JCS.getInstance( "testCache1" );
+
         LinkedList list = buildList();
-        
+
         jcs.put( "some:key", list );
+
         assertEquals( list, jcs.get( "some:key" ) );
     }
 
-    private LinkedList buildList() {
+    private LinkedList buildList()
+    {
         LinkedList list = new LinkedList();
-        
-        for ( int i = 0; i < this.count1; i++ ) {
+
+        for ( int i = 0; i < 100; i++ )
+        {
             list.add( buildMap() );
         }
 
         return list;
     }
 
-    private HashMap buildMap() {
+    private HashMap buildMap()
+    {
         HashMap map = new HashMap();
 
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < this.count2; i++ ) {
+        for ( int i = 0; i < 10; i++ )
+        {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
+
             map.put( new String( keyBytes ), new String( valBytes ) );
         }
 
         return map;
     }
+
 }

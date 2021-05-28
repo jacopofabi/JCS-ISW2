@@ -8,11 +8,9 @@ import java.util.Collection;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
-import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -42,7 +40,6 @@ import org.junit.runners.Parameterized.Parameters;
  *
  */
 @RunWith(Parameterized.class)
-@Category(JUnitTest.class)
 public class RemovalTestUtil {
 	private static JCS jcs;
 	private enum Type {RunTestPutThenRemoveCategorical, RunPutInRange, RunGetInRange};
