@@ -132,9 +132,8 @@
 				<sonar.source>src</sonar.source>
 				<sonar.language>java</sonar.language>
 				<sonar.java.source>11</sonar.java.source>
+				<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
 				<sonar.verbose>true</sonar.verbose>
-				<sonar.java.binaries>${project.build.directory}/test-classes/test/it/uniroma2/dicii/isw2/jcs/paramTests</sonar.java.binaries>
-				<!--<sonar.java.test.binaries>${project.build.directory}/test-classes/test/it/uniroma2/dicii/isw2/jcs/paramTests</sonar.java.test.binaries>-->
 				<!-- import JaCoCo report to SonarCloud-->
     			<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 			</properties>
