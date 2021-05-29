@@ -160,7 +160,7 @@
 				<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
 				<sonar.verbose>true</sonar.verbose>
 				<!-- Path to JaCoCo XML coverage reports -->
-				<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/jacoco-gen/jcs-coverage/file.xml</sonar.coverage.jacoco.xmlReportPaths>
+				<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-gen/jcs-coverage/file.xml</sonar.coverage.jacoco.xmlReportPaths>
 			</properties>
     </profile>
   </profiles>
