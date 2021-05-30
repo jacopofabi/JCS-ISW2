@@ -21,7 +21,7 @@ package test.it.uniroma2.dicii.isw2.jcs.paramTests;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -45,24 +45,24 @@ import java.util.Random;
 @RunWith(Parameterized.class)
 @Category(JCSUniTest.class)
 public class JCSUniTest {
-	private static JCS jcs;
-	private static Random random;
-	private int count1;
-	private int count2;
+	private JCS jcs;
+	private Random random;
+	private LinkedList list;
+	private String key_value;
 	
-    public JCSUniTest(int count1, int count2) {
-        this.count1 = count1;
-        this.count2 = count2;
+    public JCSUniTest(String key_value) {
+        this.key_value = key_value;
     }
     
 	/*
-	 * Configurazione dell'ambiente prima dell'esecuzione della test suite
+	 * Configurazione dell'ambiente prima dell'esecuzione di ogni test
 	 */
-	@BeforeClass
-	public static void configure() throws CacheException {
-        random = new Random();
+	@Before
+	public void configure() throws CacheException {
         JCS.setConfigFilename("/cache.ccf");
 		jcs = JCS.getInstance("testCache1");
+		random = new Random();
+		list = buildList();
 	}
 	
 	/*
@@ -71,7 +71,7 @@ public class JCSUniTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {100,10} 
+                {"some:key"} 
         });
     }
 
@@ -80,16 +80,15 @@ public class JCSUniTest {
      */
     @Test
     public void testJCS() throws Exception {
-        LinkedList list = buildList();
+        jcs.put(key_value, list);
         
-        jcs.put( "some:key", list );
-        assertEquals( list, jcs.get( "some:key" ) );
+        assertEquals(list, jcs.get(key_value));
     }
 
     private LinkedList buildList() {
         LinkedList list = new LinkedList();
         
-        for ( int i = 0; i < this.count1; i++ ) {
+        for ( int i = 0; i < 100; i++ ) {
             list.add( buildMap() );
         }
 
@@ -102,7 +101,7 @@ public class JCSUniTest {
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
 
-        for ( int i = 0; i < this.count2; i++ ) {
+        for ( int i = 0; i < 10; i++ ) {
             random.nextBytes( keyBytes );
             random.nextBytes( valBytes );
             map.put( new String( keyBytes ), new String( valBytes ) );
