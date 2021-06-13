@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
+import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -188,5 +189,11 @@ public class RemovalTestUtil {
         }
 
     }
+    
+    
+	@AfterClass
+	public static void cleanUp() {
+		 jcs.dispose();
+	}
 
 }

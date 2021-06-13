@@ -21,6 +21,7 @@ package test.it.uniroma2.dicii.isw2.jcs.paramTests;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -109,4 +110,9 @@ public class JCSUniTest {
 
         return map;
     }
+    
+	@After
+	public void cleanUp() {
+        jcs.dispose();
+	}
 }
