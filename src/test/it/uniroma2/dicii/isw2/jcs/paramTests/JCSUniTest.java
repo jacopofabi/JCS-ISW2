@@ -21,6 +21,8 @@ package test.it.uniroma2.dicii.isw2.jcs.paramTests;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
+import org.apache.jcs.access.exception.InvalidArgumentException;
+import org.apache.jcs.engine.control.group.GroupId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,12 +49,16 @@ import java.util.Random;
 @Category(JCSUniTest.class)
 public class JCSUniTest {
 	private JCS jcs;
-	private Random random;
-	private LinkedList list;
-	private String key_value;
+	private LinkedList obj;
+	private String key;
+	private String cache;
+	private Object result;
 	
-    public JCSUniTest(String key_value) {
-        this.key_value = key_value;
+    public JCSUniTest(String key, LinkedList obj, String cache, Object result) {
+        this.key = key;
+        this.obj = obj;
+        this.cache = cache;
+        this.result = result;
     }
     
 	/*
@@ -61,9 +67,7 @@ public class JCSUniTest {
 	@Before
 	public void configure() throws CacheException {
         JCS.setConfigFilename("/cache.ccf");
-		jcs = JCS.getInstance("testCache1");
-		random = new Random();
-		list = buildList();
+		jcs = JCS.getInstance(cache);
 	}
 	
 	/*
@@ -71,22 +75,32 @@ public class JCSUniTest {
 	 */
     @Parameters
     public static Collection<Object[]> data() {
+    	String key = "some:key";
+    	LinkedList obj = buildList();
+    	
         return Arrays.asList(new Object[][] {
-                {"some:key"} 
+                {key, obj, "testCache1", null},
+                {null, obj, "testCache1", InvalidArgumentException.class},
+                {key, null, "testCache1", InvalidArgumentException.class},
+                {key, obj, "prova", CacheException.class}
         });
     }
 
     /**
-     * @throws Exception
+     * @throws CacheException 
      */
     @Test
-    public void testJCS() throws Exception {
-        jcs.put(key_value, list);
-        
-        assertEquals(list, jcs.get(key_value));
+    public void testJCS() throws CacheException {
+        try {
+        	jcs.put(key, obj);
+        	assertEquals(obj, jcs.get(key));
+        }
+        catch (Exception e) {
+        	assertEquals(result, e.getClass());
+        }
     }
 
-    private LinkedList buildList() {
+    private static LinkedList buildList() {
         LinkedList list = new LinkedList();
         
         for ( int i = 0; i < 100; i++ ) {
@@ -96,8 +110,9 @@ public class JCSUniTest {
         return list;
     }
 
-    private HashMap buildMap() {
-        HashMap map = new HashMap();
+    private static HashMap buildMap() {
+    	Random random = new Random();
+    	HashMap map = new HashMap();
 
         byte[] keyBytes = new byte[32];
         byte[] valBytes = new byte[128];
